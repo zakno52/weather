@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import globals from 'globals';
 import pluginJs from '@eslint/js';
 import { FlatCompat } from '@eslint/eslintrc';
@@ -30,6 +31,10 @@ export default [
       'no-var': 'warn',
       'no-unused-vars': 'warn',
       'no-console': 'warn',
+      'prefer-const': 'warn',
+      'no-use-before-define': 'warn',
+      'no-unexpected-multiline': 'warn',
+      'require-await': 'warn',
       'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
     },
   },

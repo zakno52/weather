@@ -6,35 +6,62 @@
 }
 
 body {
-  height: 100vh;
+  background: no-repeat url(/src/img/anurag-challa-wA-hpHErU_I-unsplash.jpg);
+  /* background-color: black; */
+  background-size: cover;
+  /* height: 100vh; */
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: #e0f7fa;
 }
 
-.app-container {
-  width: 320px;
-  height: 568px;
-  background-color: white;
+.search-container {
+  width: 70%;
+  background-color: rgba(255, 255, 255, 0.411);
   border-radius: 24px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 20px 0 20px 0;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+.logo-container {
+  display: flex;
+  align-items: center;
+  color: #ffffff;
+  text-shadow:
+    1px -1px 0 #62c4ec,
+    2px -2px 0 #9f9f9f;
+  margin-bottom: 20px;
+}
+.logo {
+  width: 70px;
+}
+h1 {
+  padding-top: 2px;
 }
 
 .search-box {
+  display: flex;
+  align-items: center;
   position: relative;
   width: 80%;
+  margin-bottom: 20px;
 }
-
+.search-box label {
+  color: white;
+  font-size: 1.1rem;
+}
 .search-box input {
   width: 100%;
   padding: 12px 40px 12px 16px;
-  border: 1px solid #ccc;
+  border: #d4d4d4 solid 1px;
+  outline: none;
   border-radius: 20px;
   font-size: 16px;
+  margin-left: 20px;
 }
 
 .search-box button {
@@ -50,4 +77,143 @@ body {
 .search-box button img {
   width: 20px;
   height: 20px;
+}
+
+.metrics {
+  color: white;
+  display: none;
+}
+.results-container {
+  width: 70%;
+  margin-top: 20px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  /* padding: 30px; */
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.side-day-weather {
+  width: 110px;
+  display: flex;
+  flex-direction: column;
+}
+.location-searched {
+  border-bottom: 2px solid #000000;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  padding-left: 30px;
+  height: 40px;
+}
+.weather-data-showed {
+  display: grid;
+  gap: 10px;
+  align-items: center;
+  justify-items: center;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  /* grid-template-rows: repeat(auto-fill, 100px); */
+}
+.weather-data-showed > .icon {
+  width: 200px;
+  grid-area: 1/1/4/2;
+  filter: drop-shadow(2px 4px 6px black);
+}
+.country {
+  font-weight: bold;
+}
+.time {
+  font-style: italic;
+}
+.day-weather-results {
+  /* border-left: 2px solid #d2d2d26e; */
+  padding: 10px 30px 30px;
+  width: 90%;
+}
+
+.days {
+  padding: 10px 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-bottom: 2px solid #d2d2d26e;
+  border-right: 2px solid #d2d2d26e;
+}
+
+.days:hover {
+  background-color: #d4d4d462;
+  cursor: pointer;
+}
+.days .temp {
+  color: #505050;
+  /* font-weight: bold; */
+  font-size: 0.8rem;
+}
+.days .icon {
+  margin: -4px 0;
+}
+.days p {
+  font-size: 1.1rem;
+  color: #1e9ab6;
+  font-weight: bold;
+  margin-bottom: 3px;
+}
+
+.days:first-child {
+  border-radius: 24px 0 0 0;
+}
+.days:first-child p {
+  margin-top: 10px;
+}
+.days:last-child {
+  border-radius: 0 0 0 24px;
+}
+
+.weather-temp {
+  margin: 40px 0;
+  font-size: 2rem;
+}
+
+.weather-condition {
+  font-size: 1.4rem;
+  grid-area: 4/1/5/2;
+}
+
+.data-items {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+}
+.weather-feelslike,
+.weather-wind,
+.weather-pressure,
+.weather-precip,
+.weather-humidity,
+.weather-cloud,
+.weather-visibility,
+.weather-uv,
+.weather-gust {
+  font-size: 1.1rem;
+}
+.data-items .title {
+  display: flex;
+  align-items: center;
+  font-size: 0.8rem;
+  color: grey;
+}
+.data-icons > * {
+  opacity: 0.3;
+  margin-right: 10px;
+  width: 20px;
+}
+
+@media (min-width: 1300px) {
+  .weather-temp {
+    grid-column: 2 / -1;
+  }
 }

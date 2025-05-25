@@ -19,7 +19,29 @@ export class AddEvents {
   }
 
   static displayDataForCurrentDay() {
-    // edit + show
+    const currentDay = this.data.current;
+    const largeIcon = document.querySelector('.weather-data-showed').querySelector('.icon');
+    largeIcon.src = `${currentDay.condition.icon}`;
+
+    for (const key in this.dataElements) {
+      if (key === 'weather-temp') {
+        this.dataElements[key].lastChild.innerHTML = `${currentDay.temp_c}°C`;
+      } else if (key === 'weather-condition') {
+        this.dataElements[key].lastChild.innerHTML = `${currentDay.condition.text}`;
+      } else if (key === 'weather-wind') {
+        this.dataElements[key].lastChild.innerHTML = `${currentDay.maxwind_kph} kph`;
+      } else if (key === 'weather-precip') {
+        this.dataElements[key].lastChild.innerHTML = `${currentDay.totalprecip_mm} mm`;
+      } else if (key === 'weather-humidity') {
+        this.dataElements[key].lastChild.innerHTML = `${currentDay.avghumidity} %`;
+      } else if (key === 'weather-visibility') {
+        this.dataElements[key].lastChild.innerHTML = `${currentDay.avgvis_km} km`;
+      } else if (key === 'weather-uv') {
+        this.dataElements[key].lastChild.innerHTML = `${currentDay.uv}`;
+      } else if (key === 'weather-feelslike' || key === 'weather-pressure' || key === 'weather-cloud' || key === 'weather-gust') {
+        this.dataElements[key].style.display = 'block';
+      }
+    }
   }
 
   static displayDataForecast(index) {
@@ -29,7 +51,7 @@ export class AddEvents {
 
     for (const key in this.dataElements) {
       if (key === 'weather-temp') {
-        this.dataElements[key].lastChild.innerHTML = `${forecastDay.maxtemp_c}C - <span class='min-temp'>${forecastDay.mintemp_c}C</span>`;
+        this.dataElements[key].lastChild.innerHTML = `${forecastDay.maxtemp_c}°C - <span class='min-temp'>${forecastDay.mintemp_c}°C</span>`;
       } else if (key === 'weather-condition') {
         this.dataElements[key].lastChild.innerHTML = `${forecastDay.condition.text}`;
       } else if (key === 'weather-wind') {

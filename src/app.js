@@ -45,7 +45,7 @@ function renderData(data) {
   const time = DOMUtils.createElement('div', 'time', `${data.location.localtime}`);
   locationSearchedDiv.append(country, region, time);
 
-  const currentTempDiv = DOMUtils.createElement('div', 'temp', `${data.current.temp_c} C`);
+  const currentTempDiv = DOMUtils.createElement('div', 'temp', `${data.current.temp_c}°C`);
   const currentTempIcon = DOMUtils.createElement('img', 'icon', '');
   currentTempIcon.src = data.current.condition.icon;
   sideDaysWeatherDiv.innerHTML = '';
@@ -67,8 +67,8 @@ function renderData(data) {
       default:
         forecastDate = data.forecast.forecastday[index].date.slice(5, 10);
     }
-    const maxTempDiv = DOMUtils.createElement('div', 'temp', `${data.forecast.forecastday[index].day.maxtemp_c} C`);
-    const minTempDiv = DOMUtils.createElement('div', 'temp', `${data.forecast.forecastday[index].day.mintemp_c} C`);
+    const maxTempDiv = DOMUtils.createElement('div', 'temp', `${data.forecast.forecastday[index].day.maxtemp_c}°C`);
+    const minTempDiv = DOMUtils.createElement('div', 'temp', `${data.forecast.forecastday[index].day.mintemp_c}°C`);
     const dayTempIcon = DOMUtils.createElement('img', 'icon', '');
     dayTempIcon.src = data.forecast.forecastday[index].day.condition.icon;
     const forecastDay = DOMUtils.createElement('div', 'days', `<p>${forecastDate}</p>`);

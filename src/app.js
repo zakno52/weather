@@ -2,6 +2,7 @@
 
 import './styles.css';
 import { DOMUtils } from './DOMUtils';
+import { AddEvents } from './Events';
 
 const logoContainer = document.getElementById('logo');
 const location = document.getElementById('location-input');
@@ -9,6 +10,7 @@ const searchBtn = document.getElementById('search-button');
 const locationSearchedDiv = document.getElementById('location-searched');
 const sideDaysWeatherDiv = document.getElementById('side-day-weather');
 const weatherResultsDiv = document.getElementById('weather-data-showed');
+const resultsContainerDiv = document.getElementById('results-container');
 
 logoContainer.innerHTML = DOMUtils.logo;
 
@@ -36,6 +38,7 @@ async function fetchData() {
 }
 
 function renderData(data) {
+  resultsContainerDiv.style.display = 'flex';
   locationSearchedDiv.innerHTML = '';
   const country = DOMUtils.createElement('div', 'country', `${data.location.country}`);
   const region = DOMUtils.createElement('div', 'region', `${data.location.region}`);
@@ -46,25 +49,36 @@ function renderData(data) {
   const currentTempIcon = DOMUtils.createElement('img', 'icon', '');
   currentTempIcon.src = data.current.condition.icon;
   sideDaysWeatherDiv.innerHTML = '';
-  const dayWeather = DOMUtils.createElement('div', 'days', `<p>Current:</p>`);
+  const dayWeather = DOMUtils.createElement('div', 'days current-day', `<p>Current:</p>`);
   dayWeather.append(currentTempDiv, currentTempIcon);
   sideDaysWeatherDiv.append(dayWeather);
 
   //forcast days
   for (let index = 0; index < data.forecast.forecastday.length; index++) {
-    let dateofday = data.forecast.forecastday[index].date;
+    let forecastDate;
+    switch (index) {
+      case 0:
+        forecastDate = 'Today';
+        break;
+
+      case 1:
+        forecastDate = 'Tomorrow';
+        break;
+      default:
+        forecastDate = data.forecast.forecastday[index].date.slice(5, 10);
+    }
     const maxTempDiv = DOMUtils.createElement('div', 'temp', `${data.forecast.forecastday[index].day.maxtemp_c} C`);
     const minTempDiv = DOMUtils.createElement('div', 'temp', `${data.forecast.forecastday[index].day.mintemp_c} C`);
     const dayTempIcon = DOMUtils.createElement('img', 'icon', '');
     dayTempIcon.src = data.forecast.forecastday[index].day.condition.icon;
-    const fcdayone = DOMUtils.createElement('div', 'days', `<p>${dateofday.slice(5, 10)}</p>`);
-    fcdayone.append(maxTempDiv, dayTempIcon, minTempDiv);
-    sideDaysWeatherDiv.append(fcdayone);
+    const forecastDay = DOMUtils.createElement('div', 'days', `<p>${forecastDate}</p>`);
+    forecastDay.append(maxTempDiv, dayTempIcon, minTempDiv);
+    sideDaysWeatherDiv.append(forecastDay);
   }
 
   // Clear previous results
   weatherResultsDiv.innerHTML = '';
-  weatherResultsDiv.appendChild(currentTempIcon.cloneNode(true));
+  weatherResultsDiv.append(currentTempIcon.cloneNode(true));
   // Results data
   // Results data with classes
   const weatherFields = [
@@ -82,11 +96,17 @@ function renderData(data) {
   ];
 
   weatherFields.forEach((field) => {
-    const fieldDiv = DOMUtils.createElement(
+    const weatherData = DOMUtils.createElement(
       'div',
       `data-items ${field.class}`,
-      `<div class="title"><span class="data-icons">${field.icon}</span>${field.label}:</div> ${field.value} ${field.unit}`
+      `<div class="title"><span class="data-icons">${field.icon}</span>${field.label}:</div> <div class='weather-data'>${field.value} ${field.unit}</div>`
     );
-    weatherResultsDiv.appendChild(fieldDiv);
+
+    // pass the elements so i can edit them, naming each element by class name for easy access
+    AddEvents.dataElements[field.class] = weatherData;
+    weatherResultsDiv.appendChild(weatherData);
   });
+
+  AddEvents.data = data;
+  AddEvents.displayDataOnClick();
 }

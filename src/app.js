@@ -3,6 +3,7 @@
 import './styles.css';
 import { DOMUtils } from './DOMUtils';
 import { AddEvents } from './Events';
+import { Mychart } from './Mychart';
 
 const logoContainer = document.getElementById('logo');
 const location = document.getElementById('location-input');
@@ -83,15 +84,15 @@ function renderData(data) {
   // Results data with classes
   const weatherFields = [
     { label: 'Temperature', value: data.current.temp_c, unit: '°C', class: 'weather-temp', icon: DOMUtils.tempIcon },
-    { label: 'Feels Like', value: data.current.feelslike_c, unit: '°C', class: 'weather-feelslike', icon: DOMUtils.feelslikeIcon },
-    { label: 'Condition', value: data.current.condition.text, unit: '', class: 'weather-condition', icon: DOMUtils.conditionIcon },
-    { label: 'Wind', value: data.current.wind_kph, unit: 'kph', class: 'weather-wind', icon: DOMUtils.windIcon },
-    { label: 'Pressure', value: data.current.pressure_mb, unit: 'mb', class: 'weather-pressure', icon: DOMUtils.pressureIcon },
     { label: 'Precipitation', value: data.current.precip_mm, unit: 'mm', class: 'weather-precip', icon: DOMUtils.precIcon },
-    { label: 'Humidity', value: data.current.humidity, unit: '%', class: 'weather-humidity', icon: DOMUtils.humidIcon },
-    { label: 'Cloud', value: data.current.cloud, unit: '%', class: 'weather-cloud', icon: DOMUtils.cloudIcon },
-    { label: 'Visibility', value: data.current.vis_km, unit: 'km', class: 'weather-visibility', icon: DOMUtils.visibleIcon },
     { label: 'UV', value: data.current.uv, unit: '', class: 'weather-uv', icon: DOMUtils.uvIcon },
+    { label: 'Humidity', value: data.current.humidity, unit: '%', class: 'weather-humidity', icon: DOMUtils.humidIcon },
+    { label: 'Wind', value: data.current.wind_kph, unit: 'kph', class: 'weather-wind', icon: DOMUtils.windIcon },
+    { label: 'Visibility', value: data.current.vis_km, unit: 'km', class: 'weather-visibility', icon: DOMUtils.visibleIcon },
+    { label: 'Condition', value: data.current.condition.text, unit: '', class: 'weather-condition', icon: DOMUtils.conditionIcon },
+    { label: 'Pressure', value: data.current.pressure_mb, unit: 'mb', class: 'weather-pressure', icon: DOMUtils.pressureIcon },
+    { label: 'Feels Like', value: data.current.feelslike_c, unit: '°C', class: 'weather-feelslike', icon: DOMUtils.feelslikeIcon },
+    { label: 'Cloud', value: data.current.cloud, unit: '%', class: 'weather-cloud', icon: DOMUtils.cloudIcon },
     { label: 'Gust', value: data.current.gust_kph, unit: 'kph', class: 'weather-gust', icon: DOMUtils.gustIcon },
   ];
 
@@ -109,4 +110,5 @@ function renderData(data) {
 
   AddEvents.data = data;
   AddEvents.displayDataOnClick();
+  Mychart.data = data;
 }

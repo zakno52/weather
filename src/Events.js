@@ -29,13 +29,13 @@ export class AddEvents {
       } else if (key === 'weather-condition') {
         this.dataElements[key].lastChild.innerHTML = `${currentDay.condition.text}`;
       } else if (key === 'weather-wind') {
-        this.dataElements[key].lastChild.innerHTML = `${currentDay.maxwind_kph} kph`;
+        this.dataElements[key].lastChild.innerHTML = `${currentDay.wind_kph} kph`;
       } else if (key === 'weather-precip') {
-        this.dataElements[key].lastChild.innerHTML = `${currentDay.totalprecip_mm} mm`;
+        this.dataElements[key].lastChild.innerHTML = `${currentDay.precip_mm} mm`;
       } else if (key === 'weather-humidity') {
-        this.dataElements[key].lastChild.innerHTML = `${currentDay.avghumidity} %`;
+        this.dataElements[key].lastChild.innerHTML = `${currentDay.humidity} %`;
       } else if (key === 'weather-visibility') {
-        this.dataElements[key].lastChild.innerHTML = `${currentDay.avgvis_km} km`;
+        this.dataElements[key].lastChild.innerHTML = `${currentDay.vis_km} km`;
       } else if (key === 'weather-uv') {
         this.dataElements[key].lastChild.innerHTML = `${currentDay.uv}`;
       } else if (key === 'weather-feelslike' || key === 'weather-pressure' || key === 'weather-cloud' || key === 'weather-gust') {

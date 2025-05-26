@@ -178,7 +178,7 @@ h1 {
 
 .weather-condition {
   font-size: 1.4rem;
-  grid-area: 4/1/5/2;
+  grid-area: 3/1/5/2;
 }
 
 .data-items {
@@ -214,6 +214,12 @@ h1 {
 .min-temp {
   color: gray;
   font-size: 1.5rem;
+}
+
+.weahter-chart {
+  width: 600px;
+  height: 400px;
+  margin: 20px auto;
 }
 
 @media (min-width: 1300px) {

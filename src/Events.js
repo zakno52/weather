@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { Mychart } from './Mychart';
 
 export class AddEvents {
   // track
@@ -68,5 +69,6 @@ export class AddEvents {
         this.dataElements[key].style.display = 'none';
       }
     }
+    Mychart.createChart(index - 1);
   }
 }

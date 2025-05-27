@@ -41,6 +41,7 @@
     "webpack-dev-server": "^5.2.0"
   },
   "dependencies": {
-    "chart.js": "^4.4.9"
+    "chart.js": "^4.4.9",
+    "chartjs-plugin-datalabels": "^2.2.0"
   }
 }

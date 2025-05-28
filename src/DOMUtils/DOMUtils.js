@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 export class DOMUtils {
   static createElement(tag, className, innerHTML) {
     const element = document.createElement(tag);

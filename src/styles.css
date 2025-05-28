@@ -6,7 +6,7 @@
 }
 
 body {
-  background: no-repeat url(/src/img/anurag-challa-wA-hpHErU_I-unsplash.jpg);
+  background: repeat url(/src/img/anurag-challa-wA-hpHErU_I-unsplash.jpg);
   /* background-color: black; */
   background-size: cover;
   /* height: 100vh; */
@@ -14,10 +14,14 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 }
 
 .search-container {
-  width: 70%;
+  position: relative;
+  /* top: 35%; */
+  transform: translateY(0%);
+  width: 50%;
   background-color: rgba(255, 255, 255, 0.411);
   border-radius: 24px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
@@ -26,7 +30,14 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  transition: 1s;
+  margin-top: 17%;
 }
+/* .search-container-animation { */
+/* position: relative; */
+/* top: 20% !important; */
+/* transform: translateY(-25%) !important; */
+/* } */
 .logo-container {
   display: flex;
   align-items: center;
@@ -83,15 +94,44 @@ h1 {
   color: white;
   display: none;
 }
+.loader {
+  position: relative;
+  top: 50%;
+  right: 50%;
+  width: 60px;
+  height: 60px;
+  border: 5px solid #00aaff62;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  /* display: none; */
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 .results-container {
-  width: 70%;
-  margin-top: 20px;
+  width: 100%;
+  margin: 20px;
   background-color: rgb(255, 255, 255);
   border-radius: 24px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  display: none;
+  display: flex;
   align-items: flex-start;
   justify-content: center;
+  /* opacity: 0.1; */
+}
+.day-weather-results {
+  /* display: none; */
+  opacity: 0;
+  transition: opacity 2s ease;
 }
 
 .side-day-weather {
@@ -100,7 +140,7 @@ h1 {
   flex-direction: column;
 }
 .location-searched {
-  border-bottom: 2px solid #000000;
+  border-bottom: 4px solid #00a6ff44;
   width: 100%;
   display: flex;
   align-items: center;
@@ -229,5 +269,10 @@ h1 {
 @media (min-width: 1300px) {
   .weather-temp {
     grid-column: 2 / -1;
+  }
+}
+@media (min-width: 1000px) {
+  .results-container {
+    width: 80%;
   }
 }

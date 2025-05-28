@@ -124,8 +124,12 @@ h1 {
 .country {
   font-weight: bold;
 }
-.time {
+.date-time {
   font-style: italic;
+}
+.time {
+  color: #1e9ab6;
+  font-weight: bold;
 }
 .day-weather-results {
   /* border-left: 2px solid #d2d2d26e; */

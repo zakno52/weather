@@ -1,7 +1,6 @@
-/* eslint-disable */
-
 import Chart from 'chart.js/auto';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+import { AddEvents } from '../addEvents/Events';
 
 export class Mychart {
   static data;
@@ -21,7 +20,7 @@ export class Mychart {
         const thisHourTemp = Mychart.data.forecast.forecastday[dayIndex].hour[index].temp_c;
         const hoursOfDay = Mychart.data.forecast.forecastday[dayIndex].hour[index].time.slice(11);
         const weatherIcon = Mychart.data.forecast.forecastday[dayIndex].hour[index].condition.icon;
-        console.log(thisHourTemp);
+
         days.push(thisHourTemp);
         hours.push(hoursOfDay);
         icons.push(weatherIcon);
@@ -102,6 +101,13 @@ export class Mychart {
       type: 'line',
       data: dayData,
       options: {
+        crosshair: {
+          enabled: true,
+          // crosshair options
+        },
+        onHover: (event, chartElements) => {
+          event.native.target.style.cursor = chartElements.length > 0 ? 'pointer' : 'default';
+        },
         onClick: (event, elements, chart) => {
           const tooltip = chart.tooltip;
           if (!tooltip || !tooltip.dataPoints || tooltip.dataPoints.length === 0) return;
@@ -110,11 +116,9 @@ export class Mychart {
           const index = point.dataIndex;
           const value = point.raw;
 
-          // 👉 Do something with the clicked point
-          console.log(`Clicked point at index ${index}, value: ${value}°`);
-
-          // Example: Show a custom popup
-          // showPopup({ hour: chart.data.labels[index], temp: value });
+          AddEvents.changeDayTime('time', chart.data.labels[index]);
+          AddEvents.showHourForecast(index);
+          // console.log(hour: chart.data.labels[index], temp: value);
         },
         responsive: true,
         maintainAspectRatio: false,
@@ -149,6 +153,7 @@ export class Mychart {
     };
 
     const ctx = document.getElementById('myChart');
+    ctx.style.display = 'block';
     this.chart = new Chart(ctx, config);
     return this.chart;
   }

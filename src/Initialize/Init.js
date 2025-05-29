@@ -8,12 +8,10 @@ export class Init {
     const locationSearchedDiv = document.getElementById('location-searched');
     const sideDaysWeatherDiv = document.getElementById('side-day-weather');
     const weatherResultsDiv = document.getElementById('weather-data-showed');
-    // const resultsContainerDiv = document.getElementById('results-container');
 
-    // resultsContainerDiv.style.display = 'flex';
     locationSearchedDiv.innerHTML = '';
     const country = DOMUtils.createElement('div', 'country', `${data.location.country}`);
-    const region = DOMUtils.createElement('div', 'region', `${data.location.region}`);
+    const region = DOMUtils.createElement('div', 'region', `Region: ${data.location.region}`);
     const time = DOMUtils.createElement('div', 'date-time', `${data.location.localtime}`);
     locationSearchedDiv.append(country, region, time);
 

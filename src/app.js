@@ -8,9 +8,6 @@ import { DOMUtils } from './DOMUtils/DOMUtils';
 const logoContainer = document.getElementById('logo');
 const location = document.getElementById('location-input');
 const searchBtn = document.getElementById('search-button');
-const searchBox = document.querySelector('.search-container');
-const showBox = document.getElementById('day-weather-results');
-const loader = document.querySelector('.loader');
 
 logoContainer.innerHTML = DOMUtils.logo;
 
@@ -26,24 +23,26 @@ async function start() {
   console.log(data);
   if (data) {
     searchBoxAnimation();
-    setTimeout(() => {
-      Init.firstRendering(data);
-    }, 3000);
+
+    Init.firstRendering(data);
   } else {
     // error page
   }
 }
 
 function searchBoxAnimation() {
+  const searchBox = document.querySelector('.search-container');
+  const showBox = document.getElementById('day-weather-results');
   const resultsContainerDiv = document.getElementById('results-container');
-
+  document.body.style.overflow = 'unset';
   resultsContainerDiv.style.opacity = '1';
+  searchBox.style.transition = '1s';
   searchBox.style.marginTop = '1rem';
-  // showBox.style.display = 'block';
-  loader.style.display = 'block';
-  setTimeout(() => {
-    loader.style.display = 'none';
-  }, 1000);
   showBox.style.opacity = '1';
-  document.body.style.overflow = '';
 }
+// const loader = document.querySelector('.loader');
+// showBox.style.display = 'block';
+// loader.style.display = 'block';
+// setTimeout(() => {
+//   loader.style.display = 'none';
+// }, 1000);

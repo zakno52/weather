@@ -1,4 +1,5 @@
 import { Mychart } from '../ChartJS/Mychart';
+import { DOMUtils } from '../DOMUtils/DOMUtils';
 
 export class AddEvents {
   // track
@@ -27,22 +28,40 @@ export class AddEvents {
     largeIcon.src = `${currentDay.condition.icon}`;
 
     for (const key in this.dataElements) {
+      const title = this.dataElements[key].querySelector('.title').lastChild;
+      const smallIcon = this.dataElements[key].querySelector('.title').querySelector('.data-icons');
+      const weatherDataSmallBox = this.dataElements[key].lastChild;
+
       if (key === 'weather-temp') {
-        this.dataElements[key].lastChild.innerHTML = `${currentDay.temp_c}°C`;
+        weatherDataSmallBox.innerHTML = `${currentDay.temp_c}°C`;
       } else if (key === 'weather-condition') {
-        this.dataElements[key].lastChild.innerHTML = `${currentDay.condition.text}`;
+        weatherDataSmallBox.innerHTML = `${currentDay.condition.text}`;
       } else if (key === 'weather-wind') {
-        this.dataElements[key].lastChild.innerHTML = `${currentDay.wind_kph} kph`;
+        weatherDataSmallBox.innerHTML = `${currentDay.wind_kph} kph`;
       } else if (key === 'weather-precip') {
-        this.dataElements[key].lastChild.innerHTML = `${currentDay.precip_mm} mm`;
+        weatherDataSmallBox.innerHTML = `${currentDay.precip_mm} mm`;
       } else if (key === 'weather-humidity') {
-        this.dataElements[key].lastChild.innerHTML = `${currentDay.humidity} %`;
+        weatherDataSmallBox.innerHTML = `${currentDay.humidity} %`;
       } else if (key === 'weather-visibility') {
-        this.dataElements[key].lastChild.innerHTML = `${currentDay.vis_km} km`;
+        weatherDataSmallBox.innerHTML = `${currentDay.vis_km} km`;
       } else if (key === 'weather-uv') {
-        this.dataElements[key].lastChild.innerHTML = `${currentDay.uv}`;
-      } else if (key === 'weather-feelslike' || key === 'weather-pressure' || key === 'weather-cloud' || key === 'weather-gust') {
-        this.dataElements[key].style.display = 'flex';
+        weatherDataSmallBox.innerHTML = `${currentDay.uv}`;
+      } else if (key === 'weather-feelslike') {
+        weatherDataSmallBox.innerHTML = `${currentDay.feelslike_c}°C`;
+        title.textContent = 'Feels like';
+        smallIcon.innerHTML = DOMUtils.feelslikeIcon;
+      } else if (key === 'weather-pressure') {
+        weatherDataSmallBox.innerHTML = `${currentDay.pressure_mb} mb`;
+        title.textContent = 'Pressure';
+        smallIcon.innerHTML = DOMUtils.pressureIcon;
+      } else if (key === 'weather-cloud') {
+        weatherDataSmallBox.innerHTML = `${currentDay.cloud} %`;
+        title.textContent = 'Cloud';
+        smallIcon.innerHTML = DOMUtils.cloudIcon;
+      } else if (key === 'weather-gust') {
+        weatherDataSmallBox.innerHTML = `${currentDay.gust_kph} kph`;
+        title.textContent = 'Gust';
+        smallIcon.innerHTML = DOMUtils.gustIcon;
       }
     }
     chart.style.display = 'none';
@@ -56,22 +75,40 @@ export class AddEvents {
     largeIcon.src = `${forecastDay.condition.icon}`;
 
     for (const key in this.dataElements) {
+      const title = this.dataElements[key].querySelector('.title').lastChild;
+      const smallIcon = this.dataElements[key].querySelector('.title').querySelector('.data-icons');
+      const weatherDataSmallBox = this.dataElements[key].lastChild;
+
       if (key === 'weather-temp') {
-        this.dataElements[key].lastChild.innerHTML = `${forecastDay.maxtemp_c}°C - <span class='min-temp'>${forecastDay.mintemp_c}°C</span>`;
+        weatherDataSmallBox.innerHTML = `${forecastDay.maxtemp_c}°C - <span class='min-temp'>${forecastDay.mintemp_c}°C</span>`;
       } else if (key === 'weather-condition') {
-        this.dataElements[key].lastChild.innerHTML = `${forecastDay.condition.text}`;
+        weatherDataSmallBox.innerHTML = `${forecastDay.condition.text}`;
       } else if (key === 'weather-wind') {
-        this.dataElements[key].lastChild.innerHTML = `${forecastDay.maxwind_kph} kph`;
+        weatherDataSmallBox.innerHTML = `${forecastDay.maxwind_kph} kph`;
       } else if (key === 'weather-precip') {
-        this.dataElements[key].lastChild.innerHTML = `${forecastDay.totalprecip_mm} mm`;
+        weatherDataSmallBox.innerHTML = `${forecastDay.totalprecip_mm} mm`;
       } else if (key === 'weather-humidity') {
-        this.dataElements[key].lastChild.innerHTML = `${forecastDay.avghumidity} %`;
+        weatherDataSmallBox.innerHTML = `${forecastDay.avghumidity} %`;
       } else if (key === 'weather-visibility') {
-        this.dataElements[key].lastChild.innerHTML = `${forecastDay.avgvis_km} km`;
+        weatherDataSmallBox.innerHTML = `${forecastDay.avgvis_km} km`;
       } else if (key === 'weather-uv') {
-        this.dataElements[key].lastChild.innerHTML = `${forecastDay.uv}`;
-      } else if (key === 'weather-feelslike' || key === 'weather-pressure' || key === 'weather-cloud' || key === 'weather-gust') {
-        this.dataElements[key].style.display = 'none';
+        weatherDataSmallBox.innerHTML = `${forecastDay.uv}`;
+      } else if (key === 'weather-feelslike') {
+        title.textContent = 'Chance of rain';
+        smallIcon.innerHTML = DOMUtils.chanceRainIcon;
+        weatherDataSmallBox.innerHTML = `${forecastDay.daily_chance_of_rain} %`;
+      } else if (key === 'weather-pressure') {
+        title.textContent = 'Sunrise';
+        smallIcon.innerHTML = DOMUtils.sunriseIcon;
+        weatherDataSmallBox.innerHTML = `${this.data.forecast.forecastday[index - 1].astro.sunrise}`;
+      } else if (key === 'weather-cloud') {
+        title.textContent = 'Chance of snow';
+        smallIcon.innerHTML = DOMUtils.chanceSnowIcon;
+        weatherDataSmallBox.innerHTML = `${forecastDay.daily_chance_of_snow} %`;
+      } else if (key === 'weather-gust') {
+        title.textContent = 'Sunset';
+        smallIcon.innerHTML = DOMUtils.sunsetIcon;
+        weatherDataSmallBox.innerHTML = `${this.data.forecast.forecastday[index - 1].astro.sunset}`;
       }
     }
     Mychart.createChart(index - 1);
@@ -85,32 +122,40 @@ export class AddEvents {
     largeIcon.src = `${hourForecast.condition.icon}`;
 
     for (const key in this.dataElements) {
+      const title = this.dataElements[key].querySelector('.title').lastChild;
+      const smallIcon = this.dataElements[key].querySelector('.title').querySelector('.data-icons');
+      const weatherDataSmallBox = this.dataElements[key].lastChild;
+
       if (key === 'weather-temp') {
-        this.dataElements[key].lastChild.innerHTML = `${hourForecast.temp_c}°C`;
+        weatherDataSmallBox.innerHTML = `${hourForecast.temp_c}°C`;
       } else if (key === 'weather-condition') {
-        this.dataElements[key].lastChild.innerHTML = `${hourForecast.condition.text}`;
+        weatherDataSmallBox.innerHTML = `${hourForecast.condition.text}`;
       } else if (key === 'weather-wind') {
-        this.dataElements[key].lastChild.innerHTML = `${hourForecast.wind_kph} kph`;
+        weatherDataSmallBox.innerHTML = `${hourForecast.wind_kph} kph`;
       } else if (key === 'weather-precip') {
-        this.dataElements[key].lastChild.innerHTML = `${hourForecast.precip_mm} mm`;
+        weatherDataSmallBox.innerHTML = `${hourForecast.precip_mm} mm`;
       } else if (key === 'weather-humidity') {
-        this.dataElements[key].lastChild.innerHTML = `${hourForecast.humidity} %`;
+        weatherDataSmallBox.innerHTML = `${hourForecast.humidity} %`;
       } else if (key === 'weather-visibility') {
-        this.dataElements[key].lastChild.innerHTML = `${hourForecast.vis_km} km`;
+        weatherDataSmallBox.innerHTML = `${hourForecast.vis_km} km`;
       } else if (key === 'weather-uv') {
-        this.dataElements[key].lastChild.innerHTML = `${hourForecast.uv}`;
+        weatherDataSmallBox.innerHTML = `${hourForecast.uv}`;
       } else if (key === 'weather-feelslike') {
-        this.dataElements[key].lastChild.innerHTML = `${hourForecast.feelslike_c}°C`;
-        this.dataElements[key].style.display = 'flex';
+        weatherDataSmallBox.innerHTML = `${hourForecast.feelslike_c}°C`;
+        title.textContent = 'Feels like';
+        smallIcon.innerHTML = DOMUtils.feelslikeIcon;
       } else if (key === 'weather-pressure') {
-        this.dataElements[key].lastChild.innerHTML = `${hourForecast.pressure_mb} mb`;
-        this.dataElements[key].style.display = 'flex';
+        weatherDataSmallBox.innerHTML = `${hourForecast.pressure_mb} mb`;
+        title.textContent = 'Pressure';
+        smallIcon.innerHTML = DOMUtils.pressureIcon;
       } else if (key === 'weather-cloud') {
-        this.dataElements[key].lastChild.innerHTML = `${hourForecast.cloud} %`;
-        this.dataElements[key].style.display = 'flex';
+        weatherDataSmallBox.innerHTML = `${hourForecast.cloud} %`;
+        title.textContent = 'Cloud';
+        smallIcon.innerHTML = DOMUtils.cloudIcon;
       } else if (key === 'weather-gust') {
-        this.dataElements[key].lastChild.innerHTML = `${hourForecast.gust_kph} kph`;
-        this.dataElements[key].style.display = 'flex';
+        weatherDataSmallBox.innerHTML = `${hourForecast.gust_kph} kph`;
+        title.textContent = 'Gust';
+        smallIcon.innerHTML = DOMUtils.gustIcon;
       }
     }
   }

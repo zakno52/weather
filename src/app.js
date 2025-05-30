@@ -28,7 +28,7 @@ async function start() {
   } else {
     // error page
     location.setCustomValidity('Invalid location. Please try again.');
-    location.reportValidity(); // Triggers the display of the message
+    location.reportValidity();
   }
 }
 

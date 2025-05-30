@@ -8,6 +8,7 @@ import { DOMUtils } from './DOMUtils/DOMUtils';
 const logoContainer = document.getElementById('logo');
 const location = document.getElementById('location-input');
 const searchBtn = document.getElementById('search-button');
+const resultsContainerDiv = document.getElementById('results-container');
 
 logoContainer.innerHTML = DOMUtils.logo;
 
@@ -20,20 +21,21 @@ location.addEventListener('keypress', (e) => {
 
 async function start() {
   const data = await FetchAndReturnData.fetchData(location.value);
-  console.log(data);
-  if (data) {
+  // console.log(data.error);
+  if (!data.error) {
     searchBoxAnimation();
-
     Init.firstRendering(data);
   } else {
     // error page
+    location.setCustomValidity('Invalid location. Please try again.');
+    location.reportValidity(); // Triggers the display of the message
   }
 }
 
 function searchBoxAnimation() {
   const searchBox = document.querySelector('.search-container');
   const showBox = document.getElementById('day-weather-results');
-  const resultsContainerDiv = document.getElementById('results-container');
+
   document.body.style.overflow = 'unset';
   resultsContainerDiv.style.display = 'flex';
   resultsContainerDiv.style.opacity = '1';

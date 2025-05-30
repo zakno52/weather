@@ -7,18 +7,37 @@ export class AddEvents {
   static dataElements = {};
   static lastDayClickedIndex;
 
-  static displayDataOnClick() {
+  static async displayDataOnClick() {
     let daysOnTheSide = document.querySelectorAll('.days');
-    // track all days and add events based on their index/position
 
-    daysOnTheSide[0].addEventListener('click', () => {
+    daysOnTheSide[0].addEventListener('click', async () => {
+      await this.itemsAnimation();
       this.displayDataForCurrentDay();
     });
+
     for (let index = 1; index < daysOnTheSide.length; index++) {
-      daysOnTheSide[index].addEventListener('click', () => {
+      daysOnTheSide[index].addEventListener('click', async () => {
+        await this.itemsAnimation();
         this.displayDataForecast(index);
       });
     }
+  }
+
+  static itemsAnimation() {
+    return new Promise((resolve) => {
+      const chart = document.getElementById('weather-chart');
+      const weatherData = document.getElementById('weather-data-showed');
+
+      chart.style.opacity = '0';
+      weatherData.style.opacity = '0';
+
+      setTimeout(() => {
+        chart.style.opacity = '1';
+        weatherData.style.opacity = '1';
+
+        resolve();
+      }, 800);
+    });
   }
 
   static displayDataForCurrentDay() {

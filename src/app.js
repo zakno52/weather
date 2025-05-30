@@ -35,6 +35,7 @@ function searchBoxAnimation() {
   const showBox = document.getElementById('day-weather-results');
   const resultsContainerDiv = document.getElementById('results-container');
   document.body.style.overflow = 'unset';
+  resultsContainerDiv.style.display = 'flex';
   resultsContainerDiv.style.opacity = '1';
   searchBox.style.transition = '1s';
   searchBox.style.marginTop = '1rem';
